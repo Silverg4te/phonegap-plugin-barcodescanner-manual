@@ -26,7 +26,7 @@
 // Adds a shutter button to the UI, and changes the scan from continuous to
 // only performing a scan when you click the shutter button.  For testing.
 //------------------------------------------------------------------------------
-#define USE_SHUTTER 1
+#define USE_SHUTTER 0
 
 //------------------------------------------------------------------------------
 @class CDVbcsProcessor;
@@ -785,7 +785,7 @@ parentViewController:(UIViewController*)parentViewController
     [self.view.layer insertSublayer:previewLayer below:[[self.view.layer sublayers] objectAtIndex:0]];
 
     [self.view addSubview:[self buildOverlayView]];
-    [self startCapturing];
+    //[self startCapturing];
 
     [super viewDidAppear:animated];
 }
@@ -813,6 +813,7 @@ parentViewController:(UIViewController*)parentViewController
 //--------------------------------------------------------------------------
 - (IBAction)shutterButtonPressed {
     self.shutterPressed = YES;
+    [self startCapturing];
 }
 
 //--------------------------------------------------------------------------
@@ -892,25 +893,26 @@ parentViewController:(UIViewController*)parentViewController
 
     NSMutableArray *items;
 
-#if USE_SHUTTER
+//#if USE_SHUTTER
     id shutterButton = [[UIBarButtonItem alloc]
-                        initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
+                        initWithTitle:@"Start Scan"
+                        style:UIBarButtonItemStylePlain
                         target:(id)self
                         action:@selector(shutterButtonPressed)
                         ];
 
     if (_processor.isShowFlipCameraButton) {
-      items = [NSMutableArray arrayWithObjects:flexSpace, cancelButton, flexSpace, flipCamera, shutterButton, nil];
+      items = [NSMutableArray arrayWithObjects:shutterButton, flexSpace, cancelButton, flexSpace, flipCamera, nil];
     } else {
-      items = [NSMutableArray arrayWithObjects:flexSpace, cancelButton, flexSpace, shutterButton, nil];
+      items = [NSMutableArray arrayWithObjects:shutterButton, flexSpace, cancelButton, nil];
     }
-#else
-    if (_processor.isShowFlipCameraButton) {
-      items = [@[flexSpace, cancelButton, flexSpace, flipCamera] mutableCopy];
-    } else {
-      items = [@[flexSpace, cancelButton, flexSpace] mutableCopy];
-    }
-#endif
+//#else
+//    if (_processor.isShowFlipCameraButton) {
+//      items = [@[flexSpace, cancelButton, flexSpace, flipCamera] mutableCopy];
+//    } else {
+//      items = [@[flexSpace, cancelButton, flexSpace] mutableCopy];
+//    }
+//#endif
 
     if (_processor.isShowTorchButton && !_processor.isFrontCamera) {
       AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
