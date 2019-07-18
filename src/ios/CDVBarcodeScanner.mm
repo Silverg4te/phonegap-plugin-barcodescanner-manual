@@ -711,7 +711,7 @@ parentViewController:(UIViewController*)parentViewController
     [qrImage drawInRect:CGRectMake(0, 0, width, height)];
     qrImage = UIGraphicsGetImageFromCurrentImageContext();
 
-    /* clean up */
+    /* clean up */\
     UIGraphicsEndImageContext();
     CGImageRelease(cgImage);
 
@@ -955,11 +955,9 @@ parentViewController:(UIViewController*)parentViewController
 //--------------------------------------------------------------------------
 
 #define RETICLE_SIZE    500.0f
-#define RETICLE_WIDTH    10.0f
+#define RETICLE_WIDTH    2.0f
 #define RETICLE_OFFSET   60.0f
-#define RETICLE_ALPHA     0.4f
-#define RETICLE_HEIGHT  100.0f
-
+#define RETICLE_ALPHA     0.8f
 //-------------------------------------------------------------------------
 // builds the green box and red line
 //-------------------------------------------------------------------------
@@ -980,15 +978,15 @@ parentViewController:(UIViewController*)parentViewController
     }
 
     if (self.processor.is2D) {
-        UIColor* color = [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:RETICLE_ALPHA];
+        UIColor* color = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:RETICLE_ALPHA];
         CGContextSetStrokeColorWithColor(context, color.CGColor);
         CGContextSetLineWidth(context, RETICLE_WIDTH);
         CGContextStrokeRect(context,
                             CGRectMake(
                                        RETICLE_OFFSET,
-                                       RETICLE_SIZE/2-RETICLE_HEIGHT/2,
+                                       RETICLE_OFFSET,
                                        RETICLE_SIZE-2*RETICLE_OFFSET,
-                                       RETICLE_HEIGHT
+                                       RETICLE_SIZE-2*RETICLE_OFFSET
                                        )
                             );
     }
