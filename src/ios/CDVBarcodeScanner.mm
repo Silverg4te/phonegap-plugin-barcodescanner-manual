@@ -958,6 +958,7 @@ parentViewController:(UIViewController*)parentViewController
 #define RETICLE_WIDTH    10.0f
 #define RETICLE_OFFSET   60.0f
 #define RETICLE_ALPHA     0.4f
+#define RETICLE_HEIGHT  100.0f
 
 //-------------------------------------------------------------------------
 // builds the green box and red line
@@ -985,9 +986,9 @@ parentViewController:(UIViewController*)parentViewController
         CGContextStrokeRect(context,
                             CGRectMake(
                                        RETICLE_OFFSET,
-                                       RETICLE_OFFSET,
+                                       RETICLE_SIZE/2-RETICLE_HEIGHT/2,
                                        RETICLE_SIZE-2*RETICLE_OFFSET,
-                                       RETICLE_SIZE-2*RETICLE_OFFSET
+                                       RETICLE_HEIGHT
                                        )
                             );
     }
